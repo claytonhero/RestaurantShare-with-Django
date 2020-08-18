@@ -20,10 +20,18 @@ def restaurantCreate(request):
 
 def categoryCreate(request):
     # return HttpResponse("categoryCreate")
-    return render(request,'shareRes/categoryCreate.html')
+    categories = Category.objects.all()
+    content = {'categories':categories}
+    return render(request,'shareRes/categoryCreate.html',content)
 
 def Create_category(request):
     category_name = request.POST['categoryName']
     new_category = Category(category_name=category_name)
     new_category.save()
     return HttpResponseRedirect(reverse('index'))
+
+def Delete_category(request):
+    categoryId = request.POST['categoryId']
+    category = Category.objects.get(id = categoryId)
+    category.delete()
+    return HttpResponseRedirect(reverse('cateCreatePage'))
