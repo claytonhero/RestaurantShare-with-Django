@@ -80,3 +80,5 @@ def Update_restaurant(request):
     before_res.save()
 
     return HttpResponseRedirect(reverse('resDetailPage',kwargs={'res_id':res_id}))
+
+
