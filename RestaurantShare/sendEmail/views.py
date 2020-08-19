@@ -25,5 +25,15 @@ def sendEmail(request):
         mail_html += "<h4>* 상세내용 </h4> <p>" + restaurant.restaurant_name + "</p><br>"
 
     mail_html += "</body></html>"
+    server = smtplib.SMTP_SSL('smtp.gmail.com',465)
+    server.login('djangoemailtester001@gmail.com','tester001')
+    msg = MIMEMultipart('alternative')
+    msg['subject'] = input_title
+    msg['From'] = 'djangoemailtester001@gmail.com'
+    msg['To'] = input_receiver
+    mail_html = MIMEText(mail_html,'html')
+    msg.attach(mail_html)
+    server.sendmail(msg['From'],msg['To'].split(','),msg.as_string())
+    server.quit()
 
     return HttpResponseRedirect(reverse('index'))
